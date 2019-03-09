@@ -1,3 +1,4 @@
 /.bundle
+/spec/fixtures
 /.yardoc
 /vendor

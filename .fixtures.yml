@@ -1,0 +1,8 @@
+fixtures:
+  forge_modules:
+    stdlib:
+      repo: "puppetlabs/stdlib"
+      ref: "5.2.0"
+    concat:
+      repo: "puppetlabs/concat"
+      ref: "5.3.0"
