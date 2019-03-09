@@ -1,0 +1,17 @@
+<% [ 'private', 'unpriv', 'chroot', 'wakeup', 'maxproc' ].each do |var|
+  in_value = instance_variable_get("@#{var}")
+  out_value = case in_value
+  when nil then '-'
+  when true then 'y'
+  when false then 'n'
+  else in_value
+  end
+  instance_variable_set("@my_#{var}",out_value)
+end -%>
+<% if @comment -%>
+# <%= @comment %>
+<% end -%>
+<%= @name %>      <%= @type %>  <%= @my_private %>       <%= @my_unpriv %>       <%= @my_chroot %>       <%= @my_wakeup %>       <%= @my_maxproc %>       <%= @command %>
+<% @options.each do |option| -%>
+  -o <%= option %>
+<% end -%>

@@ -1,0 +1,11 @@
+<% if @comment -%>
+# <%= @comment %>
+<% end -%>
+<%
+  real_value = case @value
+               when TrueClass then 'yes'
+               when FalseClass then 'no' 
+               else @value
+               end
+-%>
+<%= @name %> = <%= real_value %>

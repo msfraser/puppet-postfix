@@ -1,0 +1,26 @@
+myorigin = <%= @myorigin %>
+myhostname = <%= @myhostname %>
+smtpd_banner = <%= @smtpd_banner %>
+biff = <%= @biff %>
+append_dot_mydomain = <%= @append_dot_mydomain %>
+readme_directory = <%= @readme_directory %>
+compatibility_level = <%= @compatibility_level %>
+
+# TLS parameters
+smtpd_use_tls = <%= @smtpd_use_tls ? 'yes' : 'no' %>
+smtpd_tls_cert_file = <%= @smtpd_tls_cert_file %>
+smtpd_tls_key_file = <%= @smtpd_tls_key_file %>
+smtpd_tls_session_cache_database = <%= @smtpd_tls_session_cache_database %>
+smtp_tls_session_cache_database = <%= @smtp_tls_session_cache_database %>
+
+alias_maps = <%= @alias_maps.join(' ') %>
+alias_database = <%= @alias_database.join(' ') %>
+
+smtpd_relay_restrictions = <%= @smtpd_relay_restrictions.join(' ') %>
+mydestination = <%= @mydestination.join(', ') %>
+inet_interfaces = <%= @inet_interfaces %>
+inet_protocols = <%= @inet_protocols %>
+
+mailbox_size_limit = <%= @mailbox_size_limit %>
+recipient_delimiter = <%= @recipient_delimiter %>
+
