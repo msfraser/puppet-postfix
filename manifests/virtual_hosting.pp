@@ -27,7 +27,7 @@ class postfix::virtual_hosting (
   $smtpd_options= $::postfix::defaults::smtpd_options,
 
   $message_size_limit = 52428800,
-  
+
   $content_filter = false,
   $smtpd_proxy_filter = false,
   $enable_dane = false,
@@ -35,38 +35,38 @@ class postfix::virtual_hosting (
   $submission_smtpd_proxy_filter = '',
 ) inherits postfix::defaults {
   class { 'postfix':
-    myorigin => $myorigin,
-    smtpd_banner => $smtpd_banner,
-    biff => $biff,
-    append_dot_mydomain => $append_dot_mydomain,
-    compatibility_level => $compatibility_level,
-    smtpd_use_tls => $smtpd_use_tls,
-    smtpd_tls_cert_file => $smtpd_tls_cert_file,
-    smtpd_tls_key_file => $smtpd_tls_key_file,
+    myorigin                         => $myorigin,
+    smtpd_banner                     => $smtpd_banner,
+    biff                             => $biff,
+    append_dot_mydomain              => $append_dot_mydomain,
+    compatibility_level              => $compatibility_level,
+    smtpd_use_tls                    => $smtpd_use_tls,
+    smtpd_tls_cert_file              => $smtpd_tls_cert_file,
+    smtpd_tls_key_file               => $smtpd_tls_key_file,
     smtpd_tls_session_cache_database => $smtpd_tls_session_cache_database,
-    smtp_tls_session_cache_database => $smtp_tls_session_cache_database,
-    smtpd_relay_restrictions => $smtpd_relay_restrictions,
-    myhostname => $myhostname,
-    alias_maps => $alias_maps,
-    alias_database => $alias_database,
-    mydestination => $mydestination,
-    mynetworks => $mynetworks,
-    mailbox_size_limit => $mailbox_size_limit,
-    recipient_delimiter => $recipient_delimiter,
-    inet_interfaces => $inet_interfaces,
-    inet_protocols => $inet_protocols,
-    smtpd_maxproc => $smtpd_maxproc,
-    smtpd_options => $smtpd_options,
+    smtp_tls_session_cache_database  => $smtp_tls_session_cache_database,
+    smtpd_relay_restrictions         => $smtpd_relay_restrictions,
+    myhostname                       => $myhostname,
+    alias_maps                       => $alias_maps,
+    alias_database                   => $alias_database,
+    mydestination                    => $mydestination,
+    mynetworks                       => $mynetworks,
+    mailbox_size_limit               => $mailbox_size_limit,
+    recipient_delimiter              => $recipient_delimiter,
+    inet_interfaces                  => $inet_interfaces,
+    inet_protocols                   => $inet_protocols,
+    smtpd_maxproc                    => $smtpd_maxproc,
+    smtpd_options                    => $smtpd_options,
   }
 
   postfix::maincf::param { 'message_size_limit':
     value => $message_size_limit,
   }
-  
+
   class { 'postfix::access': }
   postfix::maincf::param { 'smtpd_client_restrictions':
-		value => "check_client_access hash:${::postfix::access::path}",
-	}
+    value => "check_client_access hash:${::postfix::access::path}",
+  }
 
   class { 'postfix::virtual_aliases':}
   postfix::maincf::param { 'virtual_alias_maps':

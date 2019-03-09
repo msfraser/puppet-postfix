@@ -18,3 +18,4 @@ else
 end
 
 gem 'puppet-strings'
+gem 'pdk'
