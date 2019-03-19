@@ -1,3 +1,5 @@
+# @api public
+# @summary creates an entry in the virtual_mailboxes table
 define postfix::virtual_mailboxes::row (
   $value,
   $order = 50,

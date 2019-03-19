@@ -1,3 +1,5 @@
+# @api public
+# @summary manage an entry in the reject_bogus_ip table
 define postfix::reject_bogus_ip::row (
   $action = 'REJECT',
   $message = undef,

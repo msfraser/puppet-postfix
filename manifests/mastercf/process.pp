@@ -1,3 +1,5 @@
+# @api public
+# @summary manage an process entry in the master.cf configuration
 define postfix::mastercf::process (
   # process options
   $command,

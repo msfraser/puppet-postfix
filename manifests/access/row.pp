@@ -1,3 +1,5 @@
+# @api public
+# @summary creates an entry within the access table
 define postfix::access::row (
   $value,
   $order = 50,

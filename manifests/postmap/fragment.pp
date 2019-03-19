@@ -1,3 +1,5 @@
+# @api public
+# @summary creates an fragment with a postfix::postmap
 define postfix::postmap::fragment (
   $postmap,
   $content,

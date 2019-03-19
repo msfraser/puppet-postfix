@@ -1,3 +1,5 @@
+# @api public
+# @summary creates a fragment within the access table
 define postfix::access::fragment (
   $content,
   $order = 50,

@@ -1,3 +1,5 @@
+# @api public
+# @summary creates an entry in the virtual_aliases table
 define postfix::virtual_aliases::row (
   $value,
   $order = 50,

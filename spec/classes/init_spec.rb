@@ -5,10 +5,11 @@ describe 'postfix' do
       {
         osfamily: 'Debian',
         os: {
-          name: 'Debian'
-        }
+          name: 'Debian',
+        },
       }
     end
-    it { should contain_class('postfix') }
+
+    it { is_expected.to contain_class('postfix') }
   end
 end

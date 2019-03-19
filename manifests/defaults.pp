@@ -28,8 +28,8 @@ class postfix::defaults {
   $smtpd_use_tls = true
   $smtpd_tls_cert_file = '/etc/ssl/certs/ssl-cert-snakeoil.pem'
   $smtpd_tls_key_file = '/etc/ssl/private/ssl-cert-snakeoil.key'
-  $smtpd_tls_session_cache_database = 'btree:${data_directory}/smtpd_scache'
-  $smtp_tls_session_cache_database = 'btree:${data_directory}/smtp_scache'
+  $smtpd_tls_session_cache_database = "btree:\${data_directory}/smtpd_scache"
+  $smtp_tls_session_cache_database = "btree:\${data_directory}/smtp_scache"
   $smtpd_relay_restrictions = [
     'permit_mynetworks',
     'permit_sasl_authenticated',

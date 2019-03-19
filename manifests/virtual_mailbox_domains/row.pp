@@ -1,3 +1,11 @@
+# @api public
+# @summary creates an entry in the virtual_mailbox_domains table
+#
+# @example Basic usage
+#
+#   class { 'postfix::virtual_mailbox_domains': }
+#   postfix::virtual_mailbox_domains::row { 'mydomain.tld': }
+#
 define postfix::virtual_mailbox_domains::row (
   $value = 'OK',
   $order = 50,
