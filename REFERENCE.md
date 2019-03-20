@@ -9,11 +9,12 @@ _Public Classes_
 
 * [`postfix`](#postfix): install, configure and manage postfix and tables
 * [`postfix::access`](#postfixaccess): manage postfix access table
+* [`postfix::aliases`](#postfixaliases): manage system aliases table
 * [`postfix::content_filter`](#postfixcontent_filter): configure smtp proxy content filtering
 * [`postfix::dovecot_lda`](#postfixdovecot_lda): configure a dovecot local delivery process
 * [`postfix::maincf`](#postfixmaincf): manage postfix main.cf
 * [`postfix::mastercf`](#postfixmastercf): manage postfix master.cf
-* [`postfix::mynetworks`](#postfixmynetworks): 
+* [`postfix::mynetworks`](#postfixmynetworks): manage the mynetworks table
 * [`postfix::nullmailer`](#postfixnullmailer): postfix use case for nullmailer
 * [`postfix::reject_bogus_ip`](#postfixreject_bogus_ip): configure an reject_bogus_ip table
 * [`postfix::sasl`](#postfixsasl): use case for configuring sasl authentication
@@ -21,11 +22,11 @@ _Public Classes_
 * [`postfix::smtp_tls_parameters`](#postfixsmtp_tls_parameters): manage the smtp tls parameters
 * [`postfix::smtpd_proxy_filter`](#postfixsmtpd_proxy_filter): configure smtp before-queue proxy filter
 * [`postfix::submission`](#postfixsubmission): configure a submission service
-* [`postfix::virtual_alias_domains`](#postfixvirtual_alias_domains): 
-* [`postfix::virtual_aliases`](#postfixvirtual_aliases): 
+* [`postfix::virtual_alias_domains`](#postfixvirtual_alias_domains): manage the virtual_alias_domains table
+* [`postfix::virtual_aliases`](#postfixvirtual_aliases): manages the virtual_aliases table
 * [`postfix::virtual_hosting`](#postfixvirtual_hosting): postfix use case for virtual hosting
-* [`postfix::virtual_mailbox_domains`](#postfixvirtual_mailbox_domains): 
-* [`postfix::virtual_mailboxes`](#postfixvirtual_mailboxes): 
+* [`postfix::virtual_mailbox_domains`](#postfixvirtual_mailbox_domains): manage the virtual_mailbox_domains table
+* [`postfix::virtual_mailboxes`](#postfixvirtual_mailboxes): manages the virtual_mailboxes tables
 
 _Private Classes_
 
@@ -35,23 +36,25 @@ _Private Classes_
 
 **Defined types**
 
-* [`postfix::access::fragment`](#postfixaccessfragment): 
-* [`postfix::access::row`](#postfixaccessrow): 
-* [`postfix::maincf::param`](#postfixmaincfparam): 
-* [`postfix::mastercf::process`](#postfixmastercfprocess): 
-* [`postfix::mynetworks::row`](#postfixmynetworksrow): 
+* [`postfix::access::fragment`](#postfixaccessfragment): creates a fragment within the access table
+* [`postfix::access::row`](#postfixaccessrow): creates an entry within the access table
+* [`postfix::aliases::fragment`](#postfixaliasesfragment): creates a fragment within the aliases table
+* [`postfix::aliases::row`](#postfixaliasesrow): creates an entry within the aliases table
+* [`postfix::maincf::param`](#postfixmaincfparam): creates an parameter in the main.cf configuration
+* [`postfix::mastercf::process`](#postfixmastercfprocess): manage an process entry in the master.cf configuration
+* [`postfix::mynetworks::row`](#postfixmynetworksrow): resource for an mynetworks entry
 * [`postfix::postmap`](#postfixpostmap): generic resource type to manage postmap tables
-* [`postfix::postmap::fragment`](#postfixpostmapfragment): 
-* [`postfix::postmap::row`](#postfixpostmaprow): 
-* [`postfix::reject_bogus_ip::row`](#postfixreject_bogus_iprow): 
+* [`postfix::postmap::fragment`](#postfixpostmapfragment): creates an fragment with a postfix::postmap
+* [`postfix::postmap::row`](#postfixpostmaprow): creates a row within an postfix::postmap
+* [`postfix::reject_bogus_ip::row`](#postfixreject_bogus_iprow): manage an entry in the reject_bogus_ip table
 * [`postfix::relay_access`](#postfixrelay_access): configure hosts for relay access
 * [`postfix::sender_login_map::row`](#postfixsender_login_maprow): generate an entry in the sender_login_map table
-* [`postfix::virtual_alias_domains::row`](#postfixvirtual_alias_domainsrow): 
-* [`postfix::virtual_aliases::row`](#postfixvirtual_aliasesrow): 
-* [`postfix::virtual_hosting::domain`](#postfixvirtual_hostingdomain): 
-* [`postfix::virtual_hosting::user`](#postfixvirtual_hostinguser): 
-* [`postfix::virtual_mailbox_domains::row`](#postfixvirtual_mailbox_domainsrow): 
-* [`postfix::virtual_mailboxes::row`](#postfixvirtual_mailboxesrow): 
+* [`postfix::virtual_alias_domains::row`](#postfixvirtual_alias_domainsrow): resource for an virtual_alias_domains entry
+* [`postfix::virtual_aliases::row`](#postfixvirtual_aliasesrow): creates an entry in the virtual_aliases table
+* [`postfix::virtual_hosting::domain`](#postfixvirtual_hostingdomain): add a domain for virtual_hosting
+* [`postfix::virtual_hosting::user`](#postfixvirtual_hostinguser): creates an user in an postfix::virtual_hosting setup
+* [`postfix::virtual_mailbox_domains::row`](#postfixvirtual_mailbox_domainsrow): creates an entry in the virtual_mailbox_domains table
+* [`postfix::virtual_mailboxes::row`](#postfixvirtual_mailboxesrow): creates an entry in the virtual_mailboxes table
 
 ## Classes
 
@@ -134,6 +137,22 @@ Data type: `Any`
 
 
 Default value: $::postfix::defaults::manage_mynetworks
+
+##### `manage_aliases`
+
+Data type: `Any`
+
+
+
+Default value: $::postfix::defaults::manage_aliases
+
+##### `version`
+
+Data type: `Any`
+
+
+
+Default value: $::postfix::defaults::version
 
 ##### `myorigin`
 
@@ -327,9 +346,41 @@ Data type: `Any`
 
 Default value: $::postfix::defaults::manage_default_processes
 
+##### `chroot`
+
+Data type: `Any`
+
+
+
+Default value: $postfix::defaults::chroot
+
 ### postfix::access
 
 manage postfix access table
+
+### postfix::aliases
+
+manage system aliases table
+
+#### Parameters
+
+The following parameters are available in the `postfix::aliases` class.
+
+##### `manage_default_entries`
+
+Data type: `Any`
+
+
+
+Default value: `true`
+
+##### `type`
+
+Data type: `Any`
+
+
+
+Default value: 'hash'
 
 ### postfix::content_filter
 
@@ -601,7 +652,7 @@ Data type: `Any`
 
 Number of processes for the smtp process.
 
-Default value: $::postfix::smtpd_maxproc
+Default value: $postfix::smtpd_maxproc
 
 ##### `smtpd_options`
 
@@ -609,7 +660,7 @@ Data type: `Any`
 
 Options for the smtp process.
 
-Default value: $::postfix::smtpd_options
+Default value: $postfix::smtpd_options
 
 ##### `manage_smtp`
 
@@ -618,7 +669,7 @@ Data type: `Any`
 Could be used to disable the default smtp service line (port 25).
 In case you want to manage it yourself.
 
-Default value: $::postfix::manage_smtp
+Default value: $postfix::manage_smtp
 
 ##### `manage_default_processes`
 
@@ -628,11 +679,29 @@ Could be used to disable the default master.cf processes.
 In case you want to manage everything yourself.
 Does not include the smtp process. See `manage_smtp` option.
 
-Default value: $::postfix::manage_default_processes
+Default value: $postfix::manage_default_processes
+
+##### `chroot`
+
+Data type: `Any`
+
+Enable chroot for service processes.
+
+Default value: $postfix::chroot
 
 ### postfix::mynetworks
 
-The postfix::mynetworks class.
+manage the mynetworks table
+
+#### Examples
+
+##### Basic usage
+
+```puppet
+
+class { 'postfix::mynetworks': }
+postfix::mynetworks::row { '123.234.234': }
+```
 
 #### Parameters
 
@@ -642,7 +711,9 @@ The following parameters are available in the `postfix::mynetworks` class.
 
 Data type: `Any`
 
+By default uses an hash type table.
 
+You may want to change this to 'cidr'.
 
 Default value: 'hash'
 
@@ -914,11 +985,21 @@ Default value: ''
 
 ### postfix::virtual_alias_domains
 
-The postfix::virtual_alias_domains class.
+manage the virtual_alias_domains table
+
+#### Examples
+
+##### Basic usage
+
+```puppet
+
+class { 'postfix::virtual_alias_domains': }
+postfix::virtual_alias_domains::row { 'mydomain.tld': }
+```
 
 ### postfix::virtual_aliases
 
-The postfix::virtual_aliases class.
+manages the virtual_aliases table
 
 ### postfix::virtual_hosting
 
@@ -1154,17 +1235,17 @@ Default value: ''
 
 ### postfix::virtual_mailbox_domains
 
-The postfix::virtual_mailbox_domains class.
+manage the virtual_mailbox_domains table
 
 ### postfix::virtual_mailboxes
 
-The postfix::virtual_mailboxes class.
+manages the virtual_mailboxes tables
 
 ## Defined types
 
 ### postfix::access::fragment
 
-The postfix::access::fragment class.
+creates a fragment within the access table
 
 #### Parameters
 
@@ -1186,7 +1267,7 @@ Default value: 50
 
 ### postfix::access::row
 
-The postfix::access::row class.
+creates an entry within the access table
 
 #### Parameters
 
@@ -1214,27 +1295,19 @@ Data type: `Any`
 
 Default value: `undef`
 
-### postfix::maincf::param
+### postfix::aliases::fragment
 
-The postfix::maincf::param class.
+creates a fragment within the aliases table
 
 #### Parameters
 
-The following parameters are available in the `postfix::maincf::param` defined type.
+The following parameters are available in the `postfix::aliases::fragment` defined type.
 
-##### `value`
-
-Data type: `Any`
-
-
-
-##### `comment`
+##### `content`
 
 Data type: `Any`
 
 
-
-Default value: `undef`
 
 ##### `order`
 
@@ -1244,9 +1317,80 @@ Data type: `Any`
 
 Default value: 50
 
+### postfix::aliases::row
+
+creates an entry within the aliases table
+
+#### Parameters
+
+The following parameters are available in the `postfix::aliases::row` defined type.
+
+##### `value`
+
+Data type: `Any`
+
+
+
+##### `order`
+
+Data type: `Any`
+
+
+
+Default value: 50
+
+##### `comment`
+
+Data type: `Any`
+
+
+
+Default value: `undef`
+
+### postfix::maincf::param
+
+creates an parameter in the main.cf configuration
+
+#### Examples
+
+##### Basic usage
+
+```puppet
+
+postfix::maincf::param { 'smptd_banner':
+  value => 'unknown'
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `postfix::maincf::param` defined type.
+
+##### `value`
+
+Data type: `Any`
+
+The value for the configuration parameter.
+
+##### `comment`
+
+Data type: `Any`
+
+An optional comment to include in the main.cf.
+
+Default value: `undef`
+
+##### `order`
+
+Data type: `Any`
+
+Allows to specify an priority for ordering.
+
+Default value: 50
+
 ### postfix::mastercf::process
 
-The postfix::mastercf::process class.
+manage an process entry in the master.cf configuration
 
 #### Parameters
 
@@ -1332,7 +1476,16 @@ Default value: 50
 
 ### postfix::mynetworks::row
 
-The postfix::mynetworks::row class.
+resource for an mynetworks entry
+
+#### Examples
+
+##### Basic usage
+
+```puppet
+
+postfix::mynetworks::row { '192.168.2.3/24' }
+```
 
 #### Parameters
 
@@ -1342,7 +1495,7 @@ The following parameters are available in the `postfix::mynetworks::row` defined
 
 Data type: `Any`
 
-
+The value for this key.
 
 Default value: 'OK'
 
@@ -1350,7 +1503,8 @@ Default value: 'OK'
 
 Data type: `Any`
 
-
+Use this priority if ordering is required.
+Otherwise stay with the default.
 
 Default value: 50
 
@@ -1358,7 +1512,8 @@ Default value: 50
 
 Data type: `Any`
 
-
+An optional comment to insert into mynetworks
+for this entry.
 
 Default value: `undef`
 
@@ -1410,9 +1565,17 @@ Data type: `Any`
 
 Default value: 'hash'
 
+##### `generator_cmd`
+
+Data type: `Any`
+
+
+
+Default value: $postfix::install::postmap_cmd
+
 ### postfix::postmap::fragment
 
-The postfix::postmap::fragment class.
+creates an fragment with a postfix::postmap
 
 #### Parameters
 
@@ -1440,7 +1603,7 @@ Default value: 50
 
 ### postfix::postmap::row
 
-The postfix::postmap::row class.
+creates a row within an postfix::postmap
 
 #### Parameters
 
@@ -1480,9 +1643,17 @@ Data type: `Any`
 
 Default value: 50
 
+##### `template_file`
+
+Data type: `Any`
+
+
+
+Default value: 'postfix/postmap/row.erb'
+
 ### postfix::reject_bogus_ip::row
 
-The postfix::reject_bogus_ip::row class.
+manage an entry in the reject_bogus_ip table
 
 #### Parameters
 
@@ -1582,7 +1753,16 @@ Default value: `undef`
 
 ### postfix::virtual_alias_domains::row
 
-The postfix::virtual_alias_domains::row class.
+resource for an virtual_alias_domains entry
+
+#### Examples
+
+##### Basic usage
+
+```puppet
+
+postfix::virtual_alias_domains::row { 'mydomain.tld' }
+```
 
 #### Parameters
 
@@ -1592,7 +1772,7 @@ The following parameters are available in the `postfix::virtual_alias_domains::r
 
 Data type: `Any`
 
-
+The value for this key.
 
 Default value: 'OK'
 
@@ -1600,7 +1780,8 @@ Default value: 'OK'
 
 Data type: `Any`
 
-
+Use this priority if ordering is required.
+Otherwise stay with the default.
 
 Default value: 50
 
@@ -1608,13 +1789,14 @@ Default value: 50
 
 Data type: `Any`
 
-
+An optional comment to insert into mynetworks
+for this entry.
 
 Default value: `undef`
 
 ### postfix::virtual_aliases::row
 
-The postfix::virtual_aliases::row class.
+creates an entry in the virtual_aliases table
 
 #### Parameters
 
@@ -1644,11 +1826,32 @@ Default value: `undef`
 
 ### postfix::virtual_hosting::domain
 
-The postfix::virtual_hosting::domain class.
+add a domain for virtual_hosting
+
+#### Examples
+
+##### Basic usage
+
+```puppet
+
+class { 'postfix::virtual_hosting': }
+postfix::virtual_hosting::domain { 'mydomain.tld': }
+```
 
 ### postfix::virtual_hosting::user
 
-The postfix::virtual_hosting::user class.
+creates an user in an postfix::virtual_hosting setup
+
+#### Examples
+
+##### Basic usage
+
+```puppet
+
+postfix::virtual_hosting::user { 'user@mydomain.tld':
+  aliases => ['bob@mydomain.tld'],
+}
+```
 
 #### Parameters
 
@@ -1658,7 +1861,7 @@ The following parameters are available in the `postfix::virtual_hosting::user` d
 
 Data type: `Any`
 
-
+An optional comment to leave in postfix tables for this entry
 
 Default value: `undef`
 
@@ -1666,7 +1869,7 @@ Default value: `undef`
 
 Data type: `Any`
 
-
+A list of aliases for this user.
 
 Default value: []
 
@@ -1674,7 +1877,12 @@ Default value: []
 
 Data type: `Any`
 
+By default will setup entries in
 
+* virtual_mailboxes
+* virtual_aliases
+
+tables for incoming mail configuration.
 
 Default value: `true`
 
@@ -1682,13 +1890,27 @@ Default value: `true`
 
 Data type: `Any`
 
+By default will setup entries in
 
+* sender_login_map
+
+for outgoing mail configuration.
 
 Default value: `true`
 
 ### postfix::virtual_mailbox_domains::row
 
-The postfix::virtual_mailbox_domains::row class.
+creates an entry in the virtual_mailbox_domains table
+
+#### Examples
+
+##### Basic usage
+
+```puppet
+
+class { 'postfix::virtual_mailbox_domains': }
+postfix::virtual_mailbox_domains::row { 'mydomain.tld': }
+```
 
 #### Parameters
 
@@ -1720,7 +1942,7 @@ Default value: `undef`
 
 ### postfix::virtual_mailboxes::row
 
-The postfix::virtual_mailboxes::row class.
+creates an entry in the virtual_mailboxes table
 
 #### Parameters
 
