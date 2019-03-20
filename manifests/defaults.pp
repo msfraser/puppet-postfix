@@ -8,15 +8,49 @@ class postfix::defaults {
   $manage_maincf = true
   $manage_mastercf = true
   $manage_mynetworks = true
+  $manage_aliases = true
+
+  # for now this is the same for all supported distributions
+  $install_source = 'vendor'
+  $package_name = 'postfix'
 
   case $facts['os']['name'] {
-    'Debian': {
-      $install_source = 'vendor'
-      $package_name = 'postfix'
+    'Ubuntu': {
+      $dist_version = $facts['os']['release']['major'] ? {
+        '14.04' => '2.11.0',
+        '16.04' => '3.1.0',
+        '18.04' => '3.3.0',
+      }
+      $chroot = true
     }
+
+    'Debian': {
+      $dist_version = $facts['os']['release']['major'] ? {
+        '8' => '3.1.9',
+        '9' => '3.4.1',
+      }
+      $chroot = true
+    }
+
+    /^(RedHat|CentOS)$/: {
+      $dist_version = $facts['os']['release']['major'] ? {
+        '6' => '2.6.6',
+        '7' => '2.10.1',
+      }
+      $chroot = false
+    }
+
     default: {
       fail('operating system not supported by module')
     }
+  }
+
+  # prefer version from fact obtained thru postconf -d mail_version
+  # otherwise use the version shipped with the OS
+  if( $facts['postfix_version'] ) {
+    $version = $facts['postfix_version']
+  } else {
+    $version = $dist_version
   }
 
   # main.cf options

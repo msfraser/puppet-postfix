@@ -4,7 +4,9 @@ smtpd_banner = <%= @smtpd_banner %>
 biff = <%= @biff %>
 append_dot_mydomain = <%= @append_dot_mydomain %>
 readme_directory = <%= @readme_directory %>
+<% if @have_postfix_3_0 -%>
 compatibility_level = <%= @compatibility_level %>
+<% end -%>
 
 # TLS parameters
 smtpd_use_tls = <%= @smtpd_use_tls ? 'yes' : 'no' %>

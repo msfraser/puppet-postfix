@@ -29,12 +29,15 @@
 #   Could be used to disable the default master.cf processes.
 #   In case you want to manage everything yourself.
 #   Does not include the smtp process. See `manage_smtp` option.
+# @param chroot
+#   Enable chroot for service processes.
 class postfix::mastercf (
   $ensure = 'present',
-  $smtpd_maxproc= $::postfix::smtpd_maxproc,
-  $smtpd_options= $::postfix::smtpd_options,
-  $manage_smtp= $::postfix::manage_smtp,
-  $manage_default_processes= $::postfix::manage_default_processes,
+  $smtpd_maxproc = $postfix::smtpd_maxproc,
+  $smtpd_options = $postfix::smtpd_options,
+  $manage_smtp = $postfix::manage_smtp,
+  $manage_default_processes= $postfix::manage_default_processes,
+  $chroot = $postfix::chroot,
 ) {
   $etc_dir = $::postfix::install::etc_dir
   $path = "${etc_dir}/master.cf"
@@ -60,7 +63,7 @@ class postfix::mastercf (
       type    => 'inet',
       private => false,
       unpriv  => undef,
-      chroot  => true,
+      chroot  => $chroot,
       wakeup  => undef,
       maxproc => $smtpd_maxproc,
       command => 'smtpd',

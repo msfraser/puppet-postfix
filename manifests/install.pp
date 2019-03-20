@@ -6,11 +6,14 @@ class postfix::install {
   $install_source = $::postfix::install_source
   $package_name = $::postfix::package_name
 
+  $etc_dir = '/etc/postfix'
+  $aliases_file = '/etc/aliases'
+
   if( $manage_install ) {
     if( $install_source == 'vendor' ) {
       $service_name = 'postfix'
-      $etc_dir = '/etc/postfix'
       $postmap_cmd = '/usr/sbin/postmap'
+      $postalias_cmd = '/usr/sbin/postalias'
       $readme_directory = 'no'
       $system_ca_bundle = '/etc/ssl/certs/ca-certificates.crt'
       package { $package_name:
@@ -22,7 +25,7 @@ class postfix::install {
       }
     }
   } else {
-    $etc_dir = '/etc/postfix'
     $postmap_cmd = 'postmap'
+    $postalias_cmd = 'postalias'
   }
 }

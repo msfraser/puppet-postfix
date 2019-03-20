@@ -10,6 +10,8 @@ class postfix (
   $manage_maincf = $::postfix::defaults::manage_maincf,
   $manage_mastercf = $::postfix::defaults::manage_mastercf,
   $manage_mynetworks = $::postfix::defaults::manage_mynetworks,
+  $manage_aliases = $::postfix::defaults::manage_aliases,
+  $version = $::postfix::defaults::version,
 
   # main.cf options
   $myorigin = $::postfix::defaults::myorigin,
@@ -38,7 +40,10 @@ class postfix (
   $smtpd_options= $::postfix::defaults::smtpd_options,
   $manage_smtp= $::postfix::defaults::manage_smtp,
   $manage_default_processes= $::postfix::defaults::manage_default_processes,
+  $chroot = $postfix::defaults::chroot
 ) inherits postfix::defaults {
+  $have_postfix_3_0 = versioncmp($version, '3') >= 0
+
   class { 'postfix::install': }
   class { 'postfix::service': }
 
@@ -54,5 +59,8 @@ class postfix (
     postfix::maincf::param { 'mynetworks':
       value => inline_template('<%= @this_mynetworks.join(\' \') %>'),
     }
+  }
+  if( $manage_aliases ) {
+    class { 'postfix::aliases': }
   }
 }

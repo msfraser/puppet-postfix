@@ -6,8 +6,8 @@ define postfix::postmap (
   $content = undef,
   $description = 'postfix map',
   $type = 'hash',
+  $generator_cmd = $postfix::install::postmap_cmd,
 ) {
-  $postmap_cmd = $::postfix::install::postmap_cmd
   $etc_dir = $::postfix::install::etc_dir
   $generator = "${name}-generate-postmap"
   $manage_service = $::postfix::manage_service
@@ -48,7 +48,7 @@ define postfix::postmap (
   if( $generate ) {
     exec { $generator:
       refreshonly => true,
-      command     => "${postmap_cmd} ${type}:${path}",
+      command     => "${generator_cmd} ${type}:${path}",
       path        => ['/usr/bin', '/usr/sbin'],
       cwd         => $etc_dir,
       subscribe   => $map_resource,

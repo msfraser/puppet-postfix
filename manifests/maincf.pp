@@ -32,6 +32,7 @@ class postfix::maincf (
   $path = "${etc_dir}/main.cf"
   $manage_service = $::postfix::manage_service
   $service_name = $::postfix::install::service_name
+  $have_postfix_3_0 = $postfix::have_postfix_3_0
 
   concat { $path:
     ensure => $ensure,

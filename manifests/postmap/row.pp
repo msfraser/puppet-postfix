@@ -6,10 +6,11 @@ define postfix::postmap::row (
   $value,
   $comment = undef,
   $order = 50,
+  $template_file = 'postfix/postmap/row.erb',
 ) {
-  concat::fragment{ "${name}-row":
+  concat::fragment{ "${postmap}-${name}-row":
     target  => $postmap,
-    content => template('postfix/postmap/row.erb'),
+    content => template($template_file),
     order   => $order,
   }
 }
