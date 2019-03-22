@@ -1,3 +1,7 @@
+![Puppet Forge version](https://img.shields.io/puppetforge/v/benningm/postfix.svg)
+![Puppet Forge – PDK version](https://img.shields.io/puppetforge/pdk-version/benningm/postfix.svg)
+![Puppet Forge downloads](https://img.shields.io/puppetforge/dt/benningm/postfix.svg)
+
 # postfix
 
 #### Table of Contents
