@@ -25,7 +25,7 @@ define postfix::postmap (
       ensure => $ensure,
       owner  => 'root',
       group  => 'root',
-      mode   => '0640',
+      mode   => '0644',
     }
     $map_resource = File[$path]
   } else {
@@ -33,7 +33,7 @@ define postfix::postmap (
       ensure => $ensure,
       owner  => 'root',
       group  => 'root',
-      mode   => '0640',
+      mode   => '0644',
     }
     concat::fragment{ "${name}-head":
       target  => $path,

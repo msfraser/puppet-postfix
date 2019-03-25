@@ -38,7 +38,7 @@ class postfix::maincf (
     ensure => $ensure,
     owner  => 'root',
     group  => 'root',
-    mode   => '0640',
+    mode   => '0644',
   }
   if( $manage_service ) {
     Concat[$path] ~> Service[$service_name]
