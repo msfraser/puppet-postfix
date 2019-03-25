@@ -54,7 +54,12 @@ class postfix (
     class { 'postfix::mastercf': }
   }
   if( $manage_mynetworks ) {
+    if( ! $manage_maincf ) {
+      fail('manage_maincf must be enabled for manage_mynetworks!')
+    }
+
     class { 'postfix::mynetworks': }
+
     $this_mynetworks = $mynetworks << "${postfix::mynetworks::type}:${postfix::mynetworks::path}"
     postfix::maincf::param { 'mynetworks':
       value => inline_template('<%= @this_mynetworks.join(\' \') %>'),
