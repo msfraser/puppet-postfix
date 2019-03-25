@@ -8,14 +8,14 @@ class postfix::install {
 
   $etc_dir = '/etc/postfix'
   $aliases_file = '/etc/aliases'
+  $service_name = 'postfix'
+  $readme_directory = 'no'
+  $system_ca_bundle = '/etc/ssl/certs/ca-certificates.crt'
 
   if( $manage_install ) {
     if( $install_source == 'vendor' ) {
-      $service_name = 'postfix'
       $postmap_cmd = '/usr/sbin/postmap'
       $postalias_cmd = '/usr/sbin/postalias'
-      $readme_directory = 'no'
-      $system_ca_bundle = '/etc/ssl/certs/ca-certificates.crt'
       package { $package_name:
         ensure        => 'present',
         allow_virtual => false,

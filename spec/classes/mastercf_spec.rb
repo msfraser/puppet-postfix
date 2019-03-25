@@ -25,6 +25,7 @@ describe 'postfix::mastercf' do
 
         it 'smtp server process' do
           is_expected.to contain_postfix__mastercf__process('smtp')
+          is_expected.to contain_concat__fragment('/etc/postfix/master.cf-smtp')
         end
       end
 
@@ -37,6 +38,7 @@ describe 'postfix::mastercf' do
 
         it 'smtp server process' do
           is_expected.not_to contain_postfix__mastercf__process('smtp')
+          is_expected.not_to contain_concat__fragment('/etc/postfix/master.cf-smtp')
         end
       end
     end

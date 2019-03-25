@@ -20,6 +20,7 @@ describe 'postfix' do
           is_expected.to contain_class('postfix::mastercf')
           is_expected.to contain_class('postfix::mynetworks')
           is_expected.to contain_postfix__maincf__param('mynetworks')
+          is_expected.to contain_concat__fragment('/etc/postfix/main.cf-mynetworks')
           is_expected.to contain_class('postfix::aliases')
         end
       end
@@ -44,6 +45,7 @@ describe 'postfix' do
           is_expected.not_to contain_class('postfix::maincf')
           is_expected.not_to contain_class('postfix::mynetworks')
           is_expected.not_to contain_postfix__maincf__param('mynetworks')
+          is_expected.not_to contain_concat__fragment('/etc/postfix/main.cf-mynetworks')
         end
       end
 
