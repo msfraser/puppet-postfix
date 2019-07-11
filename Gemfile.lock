@@ -317,7 +317,7 @@ GEM
     unicode-display_width (1.5.0)
     url (0.3.2)
     wisper (2.0.0)
-    yard (0.9.18)
+    yard (0.9.20)
 
 PLATFORMS
   ruby
