@@ -1,6 +1,6 @@
 {
   "name": "benningm-postfix",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "benningm",
   "summary": "Installs, configures and manages postfix configuration and tables",
   "license": "Apache-2.0",
