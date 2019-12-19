@@ -36,6 +36,7 @@ class postfix::defaults {
       $dist_version = $facts['os']['release']['major'] ? {
         '6' => '2.6.6',
         '7' => '2.10.1',
+        '8' => '3.3.1',
       }
       $chroot = false
     }
